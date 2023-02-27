@@ -1,0 +1,35 @@
+{
+  "name": "@vroskus/lerna-build-and-publish-pipeline",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vroskus/lerna-build-and-publish-pipeline.git"
+  },
+  "description": "Tool for publishing lerna project to docker registry",
+  "author": "Vilius Roškus",
+  "keywords": [
+    "lerna",
+    "docker",
+    "ci"
+  ],
+  "engines": {
+    "node": ">=8"
+  },
+  "bin": {
+    "lerna-build-and-publish-pipeline": "bin/index.js"
+  },
+  "scripts": {
+    "test": "echo 'No tests yet'"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "lerna": "^6.5.1",
+    "yarn": "^1.22.19"
+  },
+  "bugs": {
+    "url": "https://github.com/vroskus/lerna-build-and-publish-pipeline/issues"
+  },
+  "homepage": "https://github.com/vroskus/lerna-build-and-publish-pipeline#readme",
+  "main": "bin/index.js"
+}
