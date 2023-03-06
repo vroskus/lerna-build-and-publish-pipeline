@@ -33,8 +33,6 @@ const runAgentContainer = async ({
     '/var/run/docker.sock:/var/run/docker.sock',
     '-v',
     `${rootFolder}:/home/node/app/project`,
-    '-v',
-    `${path.resolve(__dirname, '../')}:/home/node/app/pipeline`,
     '-w',
     '/home/node/app/project',
     agentName,
