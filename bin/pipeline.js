@@ -17,7 +17,7 @@ const checkIfDocker = async () => {
 };
 
 const checkIfGit = async () => {
-  await git('-v');
+  await git('--version');
 };
 
 const dockerLogin = async ({
