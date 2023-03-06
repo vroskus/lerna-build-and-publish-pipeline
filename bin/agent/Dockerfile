@@ -11,6 +11,4 @@ RUN rm -rf /var/cache/apk/* && \
 RUN git config --global user.name "Local pipeline"
 RUN git config --global user.email "local@pipeline.run"
 
-COPY ../ /home/node/app/pipeline
-
 RUN yarn global add lerna dotenv
