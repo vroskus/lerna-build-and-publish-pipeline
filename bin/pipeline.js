@@ -48,8 +48,11 @@ const setupImages = async ({
 }) => {
   const params = [
     `${path.resolve(__dirname, './scripts/setup-images.js')}`,
-    `--registry=${registry}`,
   ];
+
+  if (registry) {
+    params.push(`--registry=${registry}`);
+  }
 
   if (version) {
     params.push(`--version=${version}`);
