@@ -124,12 +124,13 @@ const main = async () => {
 
     await checkIfGit();
 
-    await dockerLogin({
-      registry,
-      username,
-      password,
-    });
-
+    if (username && password) {
+      await dockerLogin({
+        registry,
+        username,
+        password,
+      });
+    }
     await setupImages({
       version,
       all,
