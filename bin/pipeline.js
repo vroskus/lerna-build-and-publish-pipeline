@@ -131,6 +131,7 @@ const main = async () => {
         password,
       });
     }
+
     await setupImages({
       version,
       all,
@@ -140,7 +141,9 @@ const main = async () => {
 
     await buildImages();
 
-    await publishImages();
+    if (registry) {
+      await publishImages();
+    }
 
     await snapshotLayout();
   } catch (error) {
