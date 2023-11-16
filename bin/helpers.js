@@ -84,14 +84,6 @@ const getPackages = async (scope) => {
       args: ['list', '--all', '--json'],
       filter: (item) => item.location.indexOf('packages') !== -1,
     },
-    libraries: {
-      args: ['list', '--all', '--json'],
-      filter: (item) => item.location.indexOf('libraries') !== -1,
-    },
-    utilities: {
-      args: ['list', '--all', '--json'],
-      filter: (item) => item.location.indexOf('utilities') !== -1,
-    },
   };
 
   const selector = selectors[scope] || selectors.default;
