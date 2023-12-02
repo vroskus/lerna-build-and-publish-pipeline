@@ -14,7 +14,7 @@
     "ci"
   ],
   "engines": {
-    "node": ">=8"
+    "node": ">=18.0.0"
   },
   "bin": {
     "lerna-build-and-publish-pipeline": "bin/index.js"
@@ -23,8 +23,8 @@
     "test": "echo 'No tests yet'"
   },
   "dependencies": {
-    "dotenv": "^16.0.3",
-    "lerna": "^6.5.1",
+    "dotenv": "^16.3.1",
+    "lerna": "^8.0.0",
     "yarn": "^1.22.19"
   },
   "bugs": {
