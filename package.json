@@ -6,7 +6,7 @@
     "type": "git",
     "url": "git+https://github.com/vroskus/lerna-build-and-publish-pipeline.git"
   },
-  "description": "Tool for publishing lerna project to docker registry",
+  "description": "Tool for building and publishing lerna project to docker registry",
   "author": "Vilius Roškus",
   "keywords": [
     "lerna",

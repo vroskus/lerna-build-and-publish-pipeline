@@ -1,6 +1,6 @@
 # @vroskus/lerna-build-and-publish-pipeline
 
-Tool for publishing lerna project to docker registry. Implements lerna publish function with subsequent docker image for changed packages build and publish action.
+Tool for building and publishing lerna project to docker registry. Implements lerna publish function with subsequent docker image build and publish for changed project packages.
 
 ## Installation
 
