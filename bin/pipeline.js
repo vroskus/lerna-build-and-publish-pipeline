@@ -148,7 +148,9 @@ const main = async () => {
       await publishImages();
     }
 
-    await snapshotLayout();
+    if (!rebuild) {
+      await snapshotLayout();
+    }
   } catch (error) {
     console.error(error);
     process.exit(1);
