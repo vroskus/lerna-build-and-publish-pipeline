@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 const fs = require('fs');
 const {
   git,
@@ -14,7 +16,8 @@ const getProjectVersion = () => {
 
 const getLayouts = () => {
   const filePath = './layouts.json';
-  let layouts = {};
+  let layouts = {
+  };
 
   if (fs.existsSync(filePath)) {
     const layoutsString = fs.readFileSync(filePath);
@@ -26,9 +29,16 @@ const getLayouts = () => {
 };
 
 const saveLayouts = (layouts) => {
-  const layoutsString = JSON.stringify(layouts, null, 2);
+  const layoutsString = JSON.stringify(
+    layouts,
+    null,
+    2,
+  );
 
-  fs.writeFileSync('./layouts.json', layoutsString);
+  fs.writeFileSync(
+    './layouts.json',
+    layoutsString,
+  );
 };
 
 const main = async () => {
@@ -39,9 +49,15 @@ const main = async () => {
 
     const layout = packages.map((item) => `${item.name}:${item.version}`);
 
-    console.log('Layout:', version, layout);
+    console.log(
+      'Layout:',
+      version,
+      layout,
+    );
 
-    const { dry } = getArgs(['dry']);
+    const {
+      dry,
+    } = getArgs(['dry']);
 
     if (dry !== true) {
       const updatedLayouts = {

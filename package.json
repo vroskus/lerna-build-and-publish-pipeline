@@ -20,13 +20,19 @@
     "lerna-build-and-publish-pipeline": "bin/index.js"
   },
   "scripts": {
-    "test": "echo 'No tests yet'",
+    "test": "npm run test:eslint",
+    "test:eslint": "eslint bin --fix",
     "build": "echo 'Nothing to build'"
   },
   "dependencies": {
-    "dotenv": "16.4.5",
-    "lerna": "8.1.2",
-    "yarn": "1.22.21"
+    "dotenv": "^16.4.5",
+    "lerna": "^8.1.2",
+    "yarn": "^1.22.21"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.29.1"
   },
   "bugs": {
     "url": "https://github.com/vroskus/lerna-build-and-publish-pipeline/issues"

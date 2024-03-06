@@ -13,7 +13,10 @@ const buildAgentImage = async () => {
     '-t',
     agentName,
     '-f',
-    `${path.resolve(__dirname, 'Dockerfile')}`,
+    `${path.resolve(
+      __dirname,
+      'Dockerfile',
+    )}`,
     '.',
   ];
 
@@ -34,7 +37,10 @@ const runAgentContainer = async ({
     '-v',
     `${rootFolder}:/home/node/app/project`,
     '-v',
-    `${path.resolve(__dirname, '..')}:/home/node/app/pipeline`,
+    `${path.resolve(
+      __dirname,
+      '..',
+    )}:/home/node/app/pipeline`,
     '-w',
     '/home/node/app/project',
     agentName,

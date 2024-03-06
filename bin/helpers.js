@@ -1,9 +1,16 @@
+/* eslint-disable no-console */
+
 const os = require('os');
 const fs = require('fs');
-const { spawn, exec } = require('child_process');
+const {
+  spawn, exec,
+} = require('child_process');
 
 const run = async (command, args) => new Promise(((resolve, reject) => {
-  const child = spawn(command, args);
+  const child = spawn(
+    command,
+    args,
+  );
   let output = null;
 
   let commandText = command;
@@ -12,58 +19,90 @@ const run = async (command, args) => new Promise(((resolve, reject) => {
     commandText = `${command} ${args.join(' ')}`;
   }
 
-  console.log('Command: ', '\x1b[33m', commandText, '\x1b[0m\x1b[90m', '\n');
+  console.log(
+    'Command: ',
+    '\x1b[33m',
+    commandText,
+    '\x1b[0m\x1b[90m',
+    '\n',
+  );
 
-  child.stdout.on('data', (data) => {
-    if (data) {
-      console.log(data.toString());
-      output = data;
-    }
-  });
+  child.stdout.on(
+    'data',
+    (data) => {
+      if (data) {
+        console.log(data.toString());
+        output = data;
+      }
+    },
+  );
 
-  child.on('error', (error) => {
-    console.log(error);
-  });
+  child.on(
+    'error',
+    (error) => {
+      console.log(error);
+    },
+  );
 
-  child.stderr.on('data', (data) => {
-    if (data) {
-      console.log(data.toString());
-    }
-  });
+  child.stderr.on(
+    'data',
+    (data) => {
+      if (data) {
+        console.log(data.toString());
+      }
+    },
+  );
 
-  child.on('close', (code) => {
-    if (code === 0) {
-      resolve(output);
-    } else {
-      reject(new Error(`Error code: ${code}`));
-    }
-  });
+  child.on(
+    'close',
+    (code) => {
+      if (code === 0) {
+        resolve(output);
+      } else {
+        reject(new Error(`Error code: ${code}`));
+      }
+    },
+  );
 }));
 
 const git = async (command) => new Promise(((resolve, reject) => {
   const commandText = `git ${command}`;
 
-  console.log('\x1b[32m', commandText, '\x1b[0m\x1b[90m', '\n');
+  console.log(
+    '\x1b[32m',
+    commandText,
+    '\x1b[0m\x1b[90m',
+    '\n',
+  );
 
-  exec(commandText, (error, stdout) => {
-    if (error) {
-      reject(error);
-    } else {
-      resolve(stdout);
-    }
-  });
+  exec(
+    commandText,
+    (error, stdout) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(stdout);
+      }
+    },
+  );
 }));
 
 const runLocalOrGlobalLibrary = async (library, args) => {
   let libraryPath = `./node_modules/.bin/${library}`;
 
   try {
-    await run(libraryPath, ['-v']);
+    await run(
+      libraryPath,
+      ['-v'],
+    );
   } catch (e) {
     libraryPath = library;
   }
 
-  return run(libraryPath, args);
+  return run(
+    libraryPath,
+    args,
+  );
 };
 
 const getPackages = async (scope) => {
@@ -88,7 +127,10 @@ const getPackages = async (scope) => {
 
   const selector = selectors[scope] || selectors.default;
 
-  const response = await runLocalOrGlobalLibrary('lerna', selector.args);
+  const response = await runLocalOrGlobalLibrary(
+    'lerna',
+    selector.args,
+  );
 
   const list = JSON.parse(response);
 
@@ -110,7 +152,8 @@ const parseArg = (value) => {
 };
 
 const getArgs = (requiredArgs) => {
-  const output = {};
+  const output = {
+  };
 
   const providedArgs = process.argv.slice(2);
 
@@ -136,7 +179,10 @@ const getArgs = (requiredArgs) => {
 };
 
 const fileExists = (path) => new Promise((resolve) => {
-  fs.exists(path, (error) => resolve(!!error));
+  fs.exists(
+    path,
+    (error) => resolve(!!error),
+  );
 });
 
 const tmpDir = os.tmpdir();
@@ -145,7 +191,10 @@ const filePath = `${tmpDir}/pipeline-changed-packages.json`;
 const saveImagesToProcess = async (images) => {
   const stringData = JSON.stringify(images);
 
-  fs.writeFileSync(filePath, stringData);
+  fs.writeFileSync(
+    filePath,
+    stringData,
+  );
 };
 
 const getImagesToProcess = async () => {

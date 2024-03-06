@@ -1,5 +1,7 @@
 #! /usr/bin/env node
 
+/* eslint-disable no-console */
+
 const fs = require('fs');
 const path = require('path');
 const dotenv = require('dotenv');
@@ -16,14 +18,22 @@ const {
 const getEnv = ({
   rootFolder,
 }) => {
-  const envFile = path.join(rootFolder, './configs/pipeline.env');
+  const envFile = path.join(
+    rootFolder,
+    './configs/pipeline.env',
+  );
 
   if (fs.existsSync(envFile)) {
     const {
       REGISTRY_HOSTNAME,
       REGISTRY_PASSWORD,
       REGISTRY_USERNAME,
-    } = dotenv.parse(fs.readFileSync(envFile, { encoding: 'utf8' }));
+    } = dotenv.parse(fs.readFileSync(
+      envFile,
+      {
+        encoding: 'utf8',
+      },
+    ));
 
     return {
       registry: REGISTRY_HOSTNAME,
@@ -32,7 +42,8 @@ const getEnv = ({
     };
   }
 
-  return {};
+  return {
+  };
 };
 
 const getConfig = ({
@@ -97,7 +108,10 @@ const main = async () => {
     } else {
       const argsString = configToArgs(config);
       const args = argsString.split(' ');
-      const pipelineScriptPath = path.resolve(__dirname, 'pipeline.js');
+      const pipelineScriptPath = path.resolve(
+        __dirname,
+        'pipeline.js',
+      );
 
       await run(
         'node',

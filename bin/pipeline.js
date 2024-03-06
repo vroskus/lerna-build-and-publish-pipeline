@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 const path = require('path');
 const {
   getArgs,
@@ -40,6 +42,7 @@ const dockerLogin = async ({
   );
 };
 
+/* eslint-disable-next-line complexity */
 const setupImages = async ({
   version,
   all,
@@ -47,7 +50,10 @@ const setupImages = async ({
   registry,
 }) => {
   const params = [
-    `${path.resolve(__dirname, './scripts/setup-images.js')}`,
+    `${path.resolve(
+      __dirname,
+      './scripts/setup-images.js',
+    )}`,
   ];
 
   if (registry) {
@@ -74,7 +80,10 @@ const setupImages = async ({
 
 const buildImages = async () => {
   const params = [
-    `${path.resolve(__dirname, './scripts/build-images.js')}`,
+    `${path.resolve(
+      __dirname,
+      './scripts/build-images.js',
+    )}`,
   ];
 
   await run(
@@ -85,7 +94,10 @@ const buildImages = async () => {
 
 const publishImages = async () => {
   const params = [
-    `${path.resolve(__dirname, './scripts/publish-images.js')}`,
+    `${path.resolve(
+      __dirname,
+      './scripts/publish-images.js',
+    )}`,
   ];
 
   await run(
@@ -96,7 +108,10 @@ const publishImages = async () => {
 
 const snapshotLayout = async () => {
   const params = [
-    `${path.resolve(__dirname, './scripts/snapshot-layout.js')}`,
+    `${path.resolve(
+      __dirname,
+      './scripts/snapshot-layout.js',
+    )}`,
   ];
 
   await run(
@@ -105,6 +120,7 @@ const snapshotLayout = async () => {
   );
 };
 
+/* eslint-disable-next-line complexity */
 const main = async () => {
   try {
     const {

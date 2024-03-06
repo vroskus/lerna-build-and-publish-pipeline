@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 const {
   runLocalOrGlobalLibrary,
   git,
@@ -51,13 +53,21 @@ const getVersion = async (version) => {
 
 const getGitValue = async (input) => {
   const gitOutput = await git(input);
-  const value = gitOutput.replace(/\//g, '-').replace(/\n/g, '');
+  const value = gitOutput.replace(
+    /\//g,
+    '-',
+  ).replace(
+    /\n/g,
+    '',
+  );
 
   return value;
 };
 
 const isRelease = async () => {
-  const { toMaster } = getArgs(['toMaster']);
+  const {
+    toMaster,
+  } = getArgs(['toMaster']);
   const branch = await getGitValue('rev-parse --abbrev-ref HEAD');
 
   return toMaster || branch === 'master';
@@ -109,7 +119,11 @@ const preapareImagesToProcess = async (packagesToProcess, registry, release) => 
   const images = [];
 
   for (const item of packages) {
-    const image = await prepareImageToProcess(item, registry, release);
+    const image = await prepareImageToProcess(
+      item,
+      registry,
+      release,
+    );
 
     images.push(image);
   }
@@ -122,7 +136,13 @@ const main = async () => {
   try {
     const args = getArgs(['registry', 'all', 'version', 'rebuild']);
     const version = await getVersion(args.version);
-    const date = new Date().toJSON().slice(0, 10).replace(/-/g, '-');
+    const date = new Date().toJSON().slice(
+      0,
+      10,
+    ).replace(
+      /-/g,
+      '-',
+    );
 
     // Initial params to update version
     const params = [
@@ -144,7 +164,9 @@ const main = async () => {
         packageToProcess,
       ) => packageToProcess.private === false);
 
-      const packageSequenceString = packagesToProcess.map(({ name }) => name).join(',');
+      const packageSequenceString = packagesToProcess.map(({
+        name,
+      }) => name).join(',');
 
       params.push(`--force-publish=${packageSequenceString}`);
     } else {
@@ -156,7 +178,10 @@ const main = async () => {
 
     // Set new package versions but prevent push to git repository
     if (release && !args.rebuild) {
-      await runLocalOrGlobalLibrary('lerna', params);
+      await runLocalOrGlobalLibrary(
+        'lerna',
+        params,
+      );
     }
 
     const images = await preapareImagesToProcess(

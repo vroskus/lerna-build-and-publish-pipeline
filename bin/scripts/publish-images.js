@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 const {
   run,
   getImagesToProcess,
@@ -9,10 +11,16 @@ const publishImages = async (images) => {
   for (const image of images) {
     console.log(`Pushing image: ${image.name}:${image.tag}`);
 
-    await run('docker', ['push', `${image.repoPath}:${image.tag}`]);
+    await run(
+      'docker',
+      ['push', `${image.repoPath}:${image.tag}`],
+    );
 
     if (image.latest) {
-      await run('docker', ['push', `${image.repoPath}:latest`]);
+      await run(
+        'docker',
+        ['push', `${image.repoPath}:latest`],
+      );
     }
   }
 };

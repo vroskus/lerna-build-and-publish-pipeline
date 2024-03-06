@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 const {
   getImagesToProcess,
 } = require('../helpers');
@@ -8,10 +10,14 @@ const main = async () => {
   try {
     // Get list of images to process
     const images = await getImagesToProcess();
-    const foundImages = images.filter(({ name }) => (name === imageName));
+    const foundImages = images.filter(({
+      name,
+    }) => (name === imageName));
 
     if (foundImages.length === 1) {
-      const { repoPath, tag } = foundImages[0];
+      const {
+        repoPath, tag,
+      } = foundImages[0];
 
       console.log(`${repoPath}:${tag}`);
     } else {
