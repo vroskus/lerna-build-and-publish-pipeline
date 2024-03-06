@@ -1,6 +1,6 @@
 {
   "name": "@vroskus/lerna-build-and-publish-pipeline",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "license": "MIT",
   "repository": {
     "type": "git",
