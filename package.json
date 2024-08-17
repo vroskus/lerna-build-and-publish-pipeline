@@ -26,13 +26,12 @@
   },
   "dependencies": {
     "dotenv": "^16.4.5",
-    "lerna": "^8.1.2",
-    "yarn": "^1.22.21"
+    "lerna": "^8.1.8",
+    "yarn": "^1.22.22"
   },
   "devDependencies": {
-    "eslint": "^8.57.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-plugin-import": "^2.29.1"
+    "@vroskus/eslint-config": "^1.0.6",
+    "eslint": "^9.9.0"
   },
   "bugs": {
     "url": "https://github.com/vroskus/lerna-build-and-publish-pipeline/issues"

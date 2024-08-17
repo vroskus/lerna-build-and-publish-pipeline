@@ -23,9 +23,9 @@ const checkIfGit = async () => {
 };
 
 const dockerLogin = async ({
+  password,
   registry,
   username,
-  password,
 }) => {
   const params = [
     'login',
@@ -44,10 +44,10 @@ const dockerLogin = async ({
 
 /* eslint-disable-next-line complexity */
 const setupImages = async ({
-  version,
   all,
   rebuild,
   registry,
+  version,
 }) => {
   const params = [
     `${path.resolve(
@@ -124,12 +124,12 @@ const snapshotLayout = async () => {
 const main = async () => {
   try {
     const {
-      version,
       all,
+      password,
       rebuild,
       registry,
       username,
-      password,
+      version,
     } = getArgs([
       'version',
       'all',
@@ -145,17 +145,17 @@ const main = async () => {
 
     if (username && password) {
       await dockerLogin({
+        password,
         registry,
         username,
-        password,
       });
     }
 
     await setupImages({
-      version,
       all,
       rebuild,
       registry,
+      version,
     });
 
     await buildImages();

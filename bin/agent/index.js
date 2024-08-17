@@ -1,7 +1,7 @@
 const path = require('path');
 const {
-  run,
   configToArgs,
+  run,
 } = require('../helpers');
 
 const agentName = 'pipeline-agent';

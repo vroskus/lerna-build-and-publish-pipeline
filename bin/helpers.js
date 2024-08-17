@@ -3,7 +3,8 @@
 const os = require('os');
 const fs = require('fs');
 const {
-  spawn, exec,
+  exec,
+  spawn,
 } = require('child_process');
 
 const run = async (command, args) => new Promise(((resolve, reject) => {
@@ -96,6 +97,7 @@ const runLocalOrGlobalLibrary = async (library, args) => {
       ['-v'],
     );
   } catch (e) {
+    console.error(e);
     libraryPath = library;
   }
 
@@ -107,16 +109,16 @@ const runLocalOrGlobalLibrary = async (library, args) => {
 
 const getPackages = async (scope) => {
   const selectors = {
-    default: {
-      args: ['list', '--json'],
-      filter: (item) => item,
-    },
     all: {
       args: ['list', '--all', '--json'],
       filter: (item) => item,
     },
     changed: {
       args: ['changed', '--json'],
+      filter: (item) => item,
+    },
+    default: {
+      args: ['list', '--json'],
       filter: (item) => item,
     },
     packages: {
@@ -199,9 +201,8 @@ const saveImagesToProcess = async (images) => {
 
 const getImagesToProcess = async () => {
   const stringData = fs.readFileSync(filePath);
-  const images = JSON.parse(stringData);
 
-  return images;
+  return JSON.parse(stringData);
 };
 
 const configToArgs = (config) => {
@@ -217,13 +218,13 @@ const configToArgs = (config) => {
 };
 
 module.exports = {
-  run,
-  git,
-  runLocalOrGlobalLibrary,
-  getPackages,
-  getArgs,
-  fileExists,
-  getImagesToProcess,
-  saveImagesToProcess,
   configToArgs,
+  fileExists,
+  getArgs,
+  getImagesToProcess,
+  getPackages,
+  git,
+  run,
+  runLocalOrGlobalLibrary,
+  saveImagesToProcess,
 };

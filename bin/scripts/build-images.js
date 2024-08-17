@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 
 const {
-  run,
   getImagesToProcess,
+  run,
 } = require('../helpers');
 
 const buildImages = async (images) => {

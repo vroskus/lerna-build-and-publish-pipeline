@@ -2,9 +2,9 @@
 
 const fs = require('fs');
 const {
-  git,
   getArgs,
   getPackages,
+  git,
 } = require('../helpers');
 
 const getProjectVersion = () => {

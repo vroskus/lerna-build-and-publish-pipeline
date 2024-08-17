@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
 
 const {
-  runLocalOrGlobalLibrary,
-  git,
+  fileExists,
   getArgs,
   getPackages,
-  fileExists,
+  git,
+  runLocalOrGlobalLibrary,
   saveImagesToProcess,
 } = require('../helpers');
 
@@ -53,15 +53,14 @@ const getVersion = async (version) => {
 
 const getGitValue = async (input) => {
   const gitOutput = await git(input);
-  const value = gitOutput.replace(
+
+  return gitOutput.replace(
     /\//g,
     '-',
   ).replace(
     /\n/g,
     '',
   );
-
-  return value;
 };
 
 const isRelease = async () => {
@@ -76,11 +75,10 @@ const isRelease = async () => {
 const getPackagesUpdatedData = async (packagesToProcess) => {
   const allPackages = await getPackages('packages');
   const packagesToProcessNames = packagesToProcess.map((item) => item.name);
-  const updatedChangedPackages = allPackages.filter((
+
+  return allPackages.filter((
     item,
   ) => packagesToProcessNames.indexOf(item.name) !== -1);
-
-  return updatedChangedPackages;
 };
 
 const getDockerfile = async (packageName) => {
@@ -100,16 +98,14 @@ const prepareImageToProcess = async (item, registry, release) => {
   const branch = await getGitValue('rev-parse --abbrev-ref HEAD');
   const commitId = await getGitValue('rev-parse --short HEAD');
 
-  const image = {
+  return {
     dockerfile,
-    name: `${item.name}`,
-    repoPath: registry ? `${registry}/${item.name}` : item.name,
-    packageName,
-    tag: release ? item.version : `${branch}-${commitId}`,
     latest: release,
+    name: `${item.name}`,
+    packageName,
+    repoPath: registry ? `${registry}/${item.name}` : item.name,
+    tag: release ? item.version : `${branch}-${commitId}`,
   };
-
-  return image;
 };
 
 const preapareImagesToProcess = async (packagesToProcess, registry, release) => {

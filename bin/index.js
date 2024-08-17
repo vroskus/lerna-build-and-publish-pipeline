@@ -6,9 +6,9 @@ const fs = require('fs');
 const path = require('path');
 const dotenv = require('dotenv');
 const {
-  run,
-  getArgs,
   configToArgs,
+  getArgs,
+  run,
 } = require('./helpers');
 const {
   buildAgentImage,
@@ -36,9 +36,9 @@ const getEnv = ({
     ));
 
     return {
+      password: REGISTRY_PASSWORD,
       registry: REGISTRY_HOSTNAME,
       username: REGISTRY_USERNAME,
-      password: REGISTRY_PASSWORD,
     };
   }
 
@@ -50,20 +50,20 @@ const getConfig = ({
   rootFolder,
 }) => {
   const {
+    password: envPassword,
     registry: envRegistry,
     username: envUsername,
-    password: envPassword,
   } = getEnv({
     rootFolder,
   });
 
   const {
-    version,
     all,
+    password,
     rebuild,
     registry,
     username,
-    password,
+    version,
   } = getArgs([
     'version',
     'all',
@@ -74,12 +74,12 @@ const getConfig = ({
   ]);
 
   return {
-    version,
     all,
+    password: password || envPassword,
     rebuild,
     registry: registry || envRegistry,
     username: username || envUsername,
-    password: password || envPassword,
+    version,
   };
 };
 
