@@ -30,7 +30,7 @@
     "yarn": "^1.22.22"
   },
   "devDependencies": {
-    "@vroskus/eslint-config": "^1.0.9"
+    "@vroskus/eslint-config": "^1.0.11"
   },
   "bugs": {
     "url": "https://github.com/vroskus/lerna-build-and-publish-pipeline/issues"
