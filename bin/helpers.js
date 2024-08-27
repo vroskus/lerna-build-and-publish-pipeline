@@ -91,13 +91,7 @@ const git = async (command) => new Promise(((resolve, reject) => {
 const runLocalOrGlobalLibrary = async (library, args) => {
   let libraryPath = `./node_modules/.bin/${library}`;
 
-  try {
-    await run(
-      libraryPath,
-      ['-v'],
-    );
-  } catch (e) {
-    console.error(e);
+  if (fs.existsSync(libraryPath) === false) {
     libraryPath = library;
   }
 
