@@ -76,6 +76,7 @@ const git = async (command) => new Promise(((resolve, reject) => {
     '\n',
   );
 
+  /* eslint-disable-next-line sonarjs/os-command */
   exec(
     commandText,
     (error, stdout) => {
