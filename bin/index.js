@@ -1,7 +1,5 @@
 #! /usr/bin/env node
 
-/* eslint-disable no-console */
-
 const fs = require('fs');
 const path = require('path');
 const dotenv = require('dotenv');
@@ -14,6 +12,8 @@ const {
   buildAgentImage,
   runAgentContainer,
 } = require('./agent');
+
+const successExitCode = 1;
 
 const getEnv = ({
   rootFolder,
@@ -123,7 +123,7 @@ const main = async () => {
     }
   } catch (error) {
     console.error(error);
-    process.exit(1);
+    process.exit(successExitCode);
   }
 };
 

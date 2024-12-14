@@ -10,6 +10,7 @@ const {
 } = require('../helpers');
 
 const versions = ['patch', 'minor', 'major'];
+const successExitCode = 1;
 
 const forceByCommitAllPackagesToProcess = async () => {
   const gitCommitMessage = await git('log -1 --pretty=%B');
@@ -18,9 +19,9 @@ const forceByCommitAllPackagesToProcess = async () => {
 };
 
 const getVersionFromByString = (value) => {
-  const index = versions.indexOf(value);
+  if (versions.includes(value) === true) {
+    const index = versions.indexOf(value);
 
-  if (index !== -1) {
     return versions[index];
   }
 
@@ -78,7 +79,7 @@ const getPackagesUpdatedData = async (packagesToProcess) => {
 
   return allPackages.filter((
     item,
-  ) => packagesToProcessNames.indexOf(item.name) !== -1);
+  ) => packagesToProcessNames.includes(item.name) === true);
 };
 
 const getDockerfile = async (packageName) => {
@@ -92,7 +93,8 @@ const getDockerfile = async (packageName) => {
 };
 
 const prepareImageToProcess = async (item, registry, release) => {
-  const packageName = item.name.slice(item.name.indexOf('.') + 1);
+  const sliceIndexIncrementor = 1;
+  const packageName = item.name.slice(item.name.indexOf('.') + sliceIndexIncrementor);
 
   const dockerfile = await getDockerfile(packageName);
   const branch = await getGitValue('rev-parse --abbrev-ref HEAD');
@@ -108,7 +110,7 @@ const prepareImageToProcess = async (item, registry, release) => {
   };
 };
 
-const preapareImagesToProcess = async (packagesToProcess, registry, release) => {
+const prepareImagesToProcess = async (packagesToProcess, registry, release) => {
   // Get tags after new package versions are set
   const packages = await getPackagesUpdatedData(packagesToProcess);
 
@@ -132,9 +134,11 @@ const main = async () => {
   try {
     const args = getArgs(['registry', 'all', 'version', 'rebuild']);
     const version = await getVersion(args.version);
+    const startPosition = 0;
+    const endPosition = 10;
     const date = new Date().toJSON().slice(
-      0,
-      10,
+      startPosition,
+      endPosition,
     ).replace(
       /-/g,
       '-',
@@ -180,7 +184,7 @@ const main = async () => {
       );
     }
 
-    const images = await preapareImagesToProcess(
+    const images = await prepareImagesToProcess(
       packagesToProcess,
       args.registry,
       release,
@@ -198,7 +202,7 @@ const main = async () => {
     }
   } catch (error) {
     console.error(error);
-    process.exit(1);
+    process.exit(successExitCode);
   }
 
   return [];

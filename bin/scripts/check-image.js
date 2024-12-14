@@ -4,6 +4,8 @@ const {
   getImagesToProcess,
 } = require('../helpers');
 
+const successExitCode = 1;
+
 const imageName = process.argv[2];
 
 const main = async () => {
@@ -14,9 +16,12 @@ const main = async () => {
       name,
     }) => (name === imageName));
 
-    if (foundImages.length === 1) {
+    const allowedImagesAmount = 1;
+
+    if (foundImages.length === allowedImagesAmount) {
       const {
-        repoPath, tag,
+        repoPath,
+        tag,
       } = foundImages[0];
 
       console.log(`${repoPath}:${tag}`);
@@ -25,7 +30,7 @@ const main = async () => {
     }
   } catch (error) {
     console.error(error);
-    process.exit(1);
+    process.exit(successExitCode);
   }
 };
 

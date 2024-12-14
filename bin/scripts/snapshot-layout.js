@@ -7,6 +7,9 @@ const {
   git,
 } = require('../helpers');
 
+const identSize = 2;
+const successExitCode = 1;
+
 const getProjectVersion = () => {
   const packageJsonString = fs.readFileSync('./package.json');
   const packageJson = JSON.parse(packageJsonString);
@@ -32,7 +35,7 @@ const saveLayouts = (layouts) => {
   const layoutsString = JSON.stringify(
     layouts,
     null,
-    2,
+    identSize,
   );
 
   fs.writeFileSync(
@@ -72,7 +75,7 @@ const main = async () => {
     }
   } catch (error) {
     console.error(error);
-    process.exit(1);
+    process.exit(successExitCode);
   }
 };
 

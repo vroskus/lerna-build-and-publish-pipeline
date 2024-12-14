@@ -1,11 +1,11 @@
-/* eslint-disable no-console */
-
 const path = require('path');
 const {
   getArgs,
   git,
   run,
 } = require('./helpers');
+
+const successExitCode = 1;
 
 const checkIfDocker = async () => {
   const params = [
@@ -169,7 +169,7 @@ const main = async () => {
     }
   } catch (error) {
     console.error(error);
-    process.exit(1);
+    process.exit(successExitCode);
   }
 };
 

@@ -4,6 +4,8 @@ const {
   getImagesToProcess,
 } = require('../helpers');
 
+const successExitCode = 1;
+
 const main = async () => {
   try {
     // Get list of images to process
@@ -15,7 +17,7 @@ const main = async () => {
     console.log(output);
   } catch (error) {
     console.error(error);
-    process.exit(1);
+    process.exit(successExitCode);
   }
 };
 

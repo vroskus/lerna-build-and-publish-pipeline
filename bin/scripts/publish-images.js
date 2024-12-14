@@ -5,6 +5,8 @@ const {
   run,
 } = require('../helpers');
 
+const successExitCode = 1;
+
 const publishImages = async (images) => {
   console.log('Pushing images...');
 
@@ -37,7 +39,7 @@ const main = async () => {
     console.log(images.map((image) => `${image.repoPath}:${image.tag}`).join('\n'));
   } catch (error) {
     console.error(error);
-    process.exit(1);
+    process.exit(successExitCode);
   }
 };
 

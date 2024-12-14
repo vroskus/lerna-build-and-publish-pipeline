@@ -5,6 +5,8 @@ const {
   run,
 } = require('../helpers');
 
+const errorExitCode = 1;
+
 const buildImages = async (images) => {
   console.log('Building images...');
 
@@ -50,7 +52,7 @@ const main = async () => {
     console.log(images.map((image) => `${image.name}:${image.tag}`).join('\n'));
   } catch (error) {
     console.error(error);
-    process.exit(1);
+    process.exit(errorExitCode);
   }
 };
 

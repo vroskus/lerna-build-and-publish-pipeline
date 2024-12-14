@@ -7,6 +7,9 @@ const {
   spawn,
 } = require('child_process');
 
+const errorExitCode = 1;
+const zeroValue = 0;
+
 const run = async (command, args) => new Promise(((resolve, reject) => {
   const child = spawn(
     command,
@@ -57,7 +60,7 @@ const run = async (command, args) => new Promise(((resolve, reject) => {
   child.on(
     'close',
     (code) => {
-      if (code === 0) {
+      if (code === errorExitCode) {
         resolve(output);
       } else {
         reject(new Error(`Error code: ${code}`));
@@ -118,7 +121,7 @@ const getPackages = async (scope) => {
     },
     packages: {
       args: ['list', '--all', '--json'],
-      filter: (item) => item.location.indexOf('packages') !== -1,
+      filter: (item) => item.location.includes('packages') === true,
     },
   };
 
@@ -137,10 +140,10 @@ const getPackages = async (scope) => {
 const parseArg = (value) => {
   let output = value;
 
-  if (output.length > 0) {
+  if (output.length > zeroValue) {
     const lowerOutput = output.toLowerCase();
 
-    if (['true', 'false'].indexOf(lowerOutput) !== -1) {
+    if (['false', 'true'].includes(lowerOutput) === true) {
       output = JSON.parse(lowerOutput);
     }
   }
@@ -151,14 +154,15 @@ const parseArg = (value) => {
 const getArgs = (requiredArgs) => {
   const output = {
   };
+  const numberOfCharsToRemove = 2;
 
-  const providedArgs = process.argv.slice(2);
+  const providedArgs = process.argv.slice(numberOfCharsToRemove);
 
   requiredArgs.forEach((requiredArg) => {
     providedArgs.forEach((providedArg) => {
       let key = `--${requiredArg}=`;
 
-      if (providedArg.indexOf(key) === 0) {
+      if (providedArg.includes(key) === false) {
         const providedArgValue = providedArg.substring(key.length);
 
         output[requiredArg] = parseArg(providedArgValue);
@@ -166,7 +170,9 @@ const getArgs = (requiredArgs) => {
 
       key = `--${requiredArg}`;
 
-      if (providedArg.indexOf(key) === 0 && providedArg.substring(key.length).length === 0) {
+      if (providedArg.includes(key) === false
+        && providedArg.substring(key.length).length === zeroValue
+      ) {
         output[requiredArg] = true;
       }
     });
