@@ -42,7 +42,6 @@ const dockerLogin = async ({
   );
 };
 
-/* eslint-disable-next-line complexity */
 const setupImages = async ({
   all,
   rebuild,
@@ -56,21 +55,18 @@ const setupImages = async ({
     )}`,
   ];
 
-  if (registry) {
-    params.push(`--registry=${registry}`);
-  }
+  const options = [
+    [registry, `--registry=${registry}`],
+    [version, `--version=${version}`],
+    [all, '--all=true'],
+    [rebuild, '--rebuild=true'],
+  ];
 
-  if (version) {
-    params.push(`--version=${version}`);
-  }
-
-  if (all) {
-    params.push('--all=true');
-  }
-
-  if (rebuild) {
-    params.push('--rebuild=true');
-  }
+  options.forEach((option) => {
+    if (option[0]) {
+      params.push(option[1]);
+    }
+  });
 
   await run(
     'node',
