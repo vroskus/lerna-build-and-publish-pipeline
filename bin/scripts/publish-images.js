@@ -15,13 +15,19 @@ const publishImages = async (images) => {
 
     await run(
       'docker',
-      ['push', `${image.repoPath}:${image.tag}`],
+      [
+        'push',
+        `${image.repoPath}:${image.tag}`,
+      ],
     );
 
     if (image.latest) {
       await run(
         'docker',
-        ['push', `${image.repoPath}:latest`],
+        [
+          'push',
+          `${image.repoPath}:latest`,
+        ],
       );
     }
   }

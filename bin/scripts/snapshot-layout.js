@@ -60,7 +60,9 @@ const main = async () => {
 
     const {
       dry,
-    } = getArgs(['dry']);
+    } = getArgs([
+      'dry',
+    ]);
 
     if (dry !== true) {
       const updatedLayouts = {

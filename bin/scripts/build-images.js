@@ -28,13 +28,23 @@ const buildImages = async (images) => {
 
     await run(
       'docker',
-      ['image', 'tag', `${image.name}:latest`, `${image.repoPath}:${image.tag}`],
+      [
+        'image',
+        'tag',
+        `${image.name}:latest`,
+        `${image.repoPath}:${image.tag}`,
+      ],
     );
 
     if (image.latest) {
       await run(
         'docker',
-        ['image', 'tag', `${image.name}:latest`, `${image.repoPath}:latest`],
+        [
+          'image',
+          'tag',
+          `${image.name}:latest`,
+          `${image.repoPath}:latest`,
+        ],
       );
     }
   }

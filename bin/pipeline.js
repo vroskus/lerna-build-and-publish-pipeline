@@ -56,10 +56,22 @@ const setupImages = async ({
   ];
 
   const options = [
-    [registry, `--registry=${registry}`],
-    [version, `--version=${version}`],
-    [all, '--all=true'],
-    [rebuild, '--rebuild=true'],
+    [
+      registry,
+      `--registry=${registry}`,
+    ],
+    [
+      version,
+      `--version=${version}`,
+    ],
+    [
+      all,
+      '--all=true',
+    ],
+    [
+      rebuild,
+      '--rebuild=true',
+    ],
   ];
 
   options.forEach((option) => {

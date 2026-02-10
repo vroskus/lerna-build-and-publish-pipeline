@@ -25,12 +25,12 @@
     "build": "echo 'Nothing to build'"
   },
   "dependencies": {
-    "dotenv": "^17.2.3",
+    "dotenv": "^17.2.4",
     "lerna": "^9.0.3",
     "yarn": "^1.22.22"
   },
   "devDependencies": {
-    "@vroskus/eslint-config": "^1.0.30"
+    "@vroskus/eslint-config": "^1.1.1"
   },
   "bugs": {
     "url": "https://github.com/vroskus/lerna-build-and-publish-pipeline/issues"

@@ -9,7 +9,11 @@ const {
   saveImagesToProcess,
 } = require('../helpers');
 
-const versions = ['patch', 'minor', 'major'];
+const versions = [
+  'patch',
+  'minor',
+  'major',
+];
 const successExitCode = 1;
 
 const forceByCommitAllPackagesToProcess = async () => {
@@ -67,7 +71,9 @@ const getGitValue = async (input) => {
 const isRelease = async () => {
   const {
     toMaster,
-  } = getArgs(['toMaster']);
+  } = getArgs([
+    'toMaster',
+  ]);
   const branch = await getGitValue('rev-parse --abbrev-ref HEAD');
 
   return toMaster || branch === 'master';
@@ -114,7 +120,8 @@ const prepareImagesToProcess = async (packagesToProcess, registry, release) => {
   // Get tags after new package versions are set
   const packages = await getPackagesUpdatedData(packagesToProcess);
 
-  const images = [];
+  const images = [
+  ];
 
   for (const item of packages) {
     const image = await prepareImageToProcess(
@@ -132,7 +139,12 @@ const prepareImagesToProcess = async (packagesToProcess, registry, release) => {
 /* eslint-disable-next-line complexity */
 const main = async () => {
   try {
-    const args = getArgs(['registry', 'all', 'version', 'rebuild']);
+    const args = getArgs([
+      'registry',
+      'all',
+      'version',
+      'rebuild',
+    ]);
     const version = await getVersion(args.version);
     const startPosition = 0;
     const endPosition = 10;
@@ -154,7 +166,8 @@ const main = async () => {
       '--no-push',
     ];
 
-    let packagesToProcess = [];
+    let packagesToProcess = [
+    ];
 
     if (args.rebuild || args.all || await forceByCommitAllPackagesToProcess()) {
       // If all packages should be updated
@@ -197,7 +210,11 @@ const main = async () => {
     if (release && !args.rebuild) {
       await runLocalOrGlobalLibrary(
         'yarn',
-        ['version', `--${version}`, '--message="Build v%s [skip ci]"'],
+        [
+          'version',
+          `--${version}`,
+          '--message="Build v%s [skip ci]"',
+        ],
       );
     }
   } catch (error) {
@@ -205,7 +222,8 @@ const main = async () => {
     process.exit(successExitCode);
   }
 
-  return [];
+  return [
+  ];
 };
 
 main();

@@ -108,19 +108,33 @@ const runLocalOrGlobalLibrary = async (library, args) => {
 const getPackages = async (scope) => {
   const selectors = {
     all: {
-      args: ['list', '--all', '--json'],
+      args: [
+        'list',
+        '--all',
+        '--json',
+      ],
       filter: (item) => item,
     },
     changed: {
-      args: ['changed', '--json'],
+      args: [
+        'changed',
+        '--json',
+      ],
       filter: (item) => item,
     },
     default: {
-      args: ['list', '--json'],
+      args: [
+        'list',
+        '--json',
+      ],
       filter: (item) => item,
     },
     packages: {
-      args: ['list', '--all', '--json'],
+      args: [
+        'list',
+        '--all',
+        '--json',
+      ],
       filter: (item) => item.location.includes('packages') === true,
     },
   };
@@ -143,7 +157,10 @@ const parseArg = (value) => {
   if (output.length > zeroValue) {
     const lowerOutput = output.toLowerCase();
 
-    if (['false', 'true'].includes(lowerOutput) === true) {
+    if ([
+      'false',
+      'true',
+    ].includes(lowerOutput) === true) {
       output = JSON.parse(lowerOutput);
     }
   }
@@ -209,7 +226,10 @@ const getImagesToProcess = async () => {
 const configToArgs = (config) => {
   let args = '';
 
-  for (const [key, value] of Object.entries(config)) {
+  for (const [
+    key,
+    value,
+  ] of Object.entries(config)) {
     if (value) {
       args += ` --${key}=${value}`;
     }
